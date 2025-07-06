@@ -1,5 +1,7 @@
 # To-Do List Android App
 
+![image](https://github.com/user-attachments/assets/68c2b42f-9021-4030-9854-af554653c5ca)
+
 A modern and user-friendly To-Do list mobile application built using Kotlin and Jetpack Compose.
 
 ## Features
