@@ -125,7 +125,7 @@ class TodoListRepository(private val listDao: ListDao, private val todoItemDao: 
                 batch.set(docRef, list)
             }
 
-            // Backup todo items
+            // Backup items
             val itemsCollection = userDocRef.collection("todo_items")
             todoItems.forEach { item ->
                 // Use the Room ID as the document ID in Firestore
