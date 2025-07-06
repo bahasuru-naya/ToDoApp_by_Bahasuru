@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.google.firebase.firestore.firestore
 import com.google.firebase.Firebase
+import com.google.firebase.firestore.CollectionReference
 import kotlinx.coroutines.tasks.await
 
 class TodoListRepository(private val listDao: ListDao, private val todoItemDao: TodoItemDao) {
@@ -104,12 +105,15 @@ class TodoListRepository(private val listDao: ListDao, private val todoItemDao: 
     }
 
     //backup
-
     suspend fun backupToFirestore(username: String?) {
         val userId = username?: return // Ensure user is logged in
 
         val firestore = Firebase.firestore
         val userDocRef = firestore.collection("users").document(userId)
+
+        // Delete existing 'lists' and 'todo_items' subcollections
+        deleteCollection(userDocRef.collection("lists"))
+        deleteCollection(userDocRef.collection("todo_items"))
 
         // Get all data from Room
         val lists = listDao.getAllListsForBackup()
@@ -133,6 +137,14 @@ class TodoListRepository(private val listDao: ListDao, private val todoItemDao: 
                 batch.set(docRef, item)
             }
         }.await() // Coroutine waits for the batch write to complete
+    }
+
+    // Utility function to delete all documents in a collection
+    private suspend fun deleteCollection(collectionRef: CollectionReference) {
+        val snapshot = collectionRef.get().await()
+        for (document in snapshot.documents) {
+            document.reference.delete().await()
+        }
     }
 
     // restore all data from Firestore
