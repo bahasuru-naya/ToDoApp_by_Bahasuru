@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ToDo App</string>
+    <string name="go_to_lists">Go to lists</string>
+    <string name="lists_screen_title">Lists</string>
+</resources>
