@@ -42,4 +42,4 @@ A modern and user-friendly To-Do list mobile application built using Kotlin and 
 
 Clone the repo:
    ```bash
-   git clone https://github.com/your-username/todo-app.git
+   git clone https://github.com/bahasuru-naya/ToDoApp_by_Bahasuru.git
